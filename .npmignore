@@ -1,0 +1,23 @@
+# Development
+.git
+.gitignore
+.github
+test/
+tests/
+*.test.js
+*.spec.js
+.eslintrc*
+.prettierrc*
+tsconfig.json
+
+# Build artifacts
+.DS_Store
+*.log
+coverage/
+.nyc_output/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
