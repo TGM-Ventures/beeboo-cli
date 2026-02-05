@@ -75,7 +75,7 @@ async function listEntries(flags) {
       id: e.id?.slice(0, 8) || '—',
       title: e.title || e.key || '(untitled)',
       namespace: e.namespace || 'default',
-      status: e.status || 'draft',
+      status: e.status || '—',
       updated: e.updated_at ? out.timeAgo(e.updated_at) : '—',
     })), [
       { key: 'id', label: 'ID', color: 'dim' },
@@ -131,6 +131,8 @@ async function addEntry(args, flags) {
 
     out.success(`Knowledge entry created: "${title}"`);
     if (data?.id) console.log(`  ID: ${out.style.dim(data.id)}`);
+    if (data?.status) console.log(`  Status: ${data.status}`);
+    if (data?.approval_id) console.log(`  Approval: ${out.style.dim(data.approval_id)} (${data.approval_status || 'pending'})`);
   } catch (err) {
     out.error(`Network error: ${err.message}`);
     process.exit(1);
