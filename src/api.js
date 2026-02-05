@@ -145,6 +145,10 @@ const api = {
   getProject: (id) => api.get(`/api/v1/projects/${id}`),
   createProject: (data) => api.post('/api/v1/projects', data),
 
+  // --- Knowledge (extended) ---
+  getKnowledgeEntryByKey: (key) => api.get('/api/v1/knowledge/entries', { query: { key } }),
+  listKnowledgeEntriesByStatus: (status) => api.get('/api/v1/knowledge/entries', { query: { status } }),
+
   // --- Health ---
   health: () => api.get('/readyz'),
   apiInfo: () => api.get('/api/v1'),

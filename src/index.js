@@ -97,11 +97,16 @@ ${out.style.bold('Commands:')}
                                     ${out.style.dim('"request approval for $5000 payment"')}
                                     ${out.style.dim('"show pending approvals"')}
 
+  ${out.style.amber('commit')} ${out.style.dim('"message"')} ${out.style.dim('[--key key]')}    Stage knowledge for review (like git commit)
+  ${out.style.amber('push')} ${out.style.dim('"message"')} ${out.style.dim('[--key key]')}      Direct publish (like git push, no approval)
+  ${out.style.amber('log')} ${out.style.dim('[--key key]')}                   Show knowledge history (like git log)
+  ${out.style.amber('diff')} ${out.style.dim('<id>')} ${out.style.dim('[--pending]')}          Show changes (like git diff)
+  ${out.style.amber('status')}                            Show pending commits & activity
+
   ${out.style.amber('knowledge')} list|add|search|get|delete
   ${out.style.amber('approvals')} list|request|approve|deny|get
   ${out.style.amber('requests')}  list|create|get|complete
   ${out.style.amber('config')}    list|set|get|delete
-  ${out.style.amber('status')}                            Check API health
   ${out.style.amber('version')}                           Show version
 
 ${out.style.bold('Flags:')}
@@ -163,6 +168,31 @@ async function main() {
         break;
       }
 
+      case 'commit':
+      case 'ci': {
+        const { handleCommit } = require('./commands/commit');
+        await handleCommit(args, flags);
+        break;
+      }
+
+      case 'push': {
+        const { handlePush } = require('./commands/push');
+        await handlePush(args, flags);
+        break;
+      }
+
+      case 'log': {
+        const { handleLog } = require('./commands/log');
+        await handleLog(args, flags);
+        break;
+      }
+
+      case 'diff': {
+        const { handleDiff } = require('./commands/diff');
+        await handleDiff(args, flags);
+        break;
+      }
+
       case 'knowledge':
       case 'kb':
       case 'k': {
@@ -195,7 +225,12 @@ async function main() {
         break;
       }
 
-      case 'status':
+      case 'status': {
+        const { handleStatus } = require('./commands/status');
+        await handleStatus(args, flags);
+        break;
+      }
+
       case 'health':
       case 'ping': {
         const { api, isOk, getData } = require('./api');
